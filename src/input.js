@@ -22,7 +22,8 @@ export default (element,
     // Use parens so we don't return an assignment
     start: () => (subscription = text$.subscribe(text => write(text))),
     stop: () => subscription && subscription.unsubscribe(),
-    clear: () => write('')
+    clear: () => write(''),
+    text$
   }
 
   if (autoStart) {

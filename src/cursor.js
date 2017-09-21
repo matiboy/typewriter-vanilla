@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs/Observable'
 
-export default (pattern = [200, 800, 400, 800, 200], character = '|', empty = '') => Observable.of(empty)
+export default (pattern = [150, 700, 300, 700, 150], character = '|', empty = '') => Observable.of(empty)
   .concat(
     Observable.from(pattern)
     .concatMap(
