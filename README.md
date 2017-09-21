@@ -1,83 +1,39 @@
-# Webpack library starter
+# Typewriter Vanilla
 
-Webpack based boilerplate for producing libraries (Input: ES6, Output: universal library)
+Typewriter effect that can be applied to any DOM element.
+Uses RxJS.  
+The main purpose is actually to focus on the "text" logic, so it can be reused in any form of React, React-Native, Angular, Vue.js, jQuery plugin, Web components; or simply in vanilla JS
 
 ## Features
 
-* Webpack 3 based.
-* ES6 as a source.
-* Exports in a [umd](https://github.com/umdjs/umd) format so your library works everywhere.
-* ES6 test setup with [Mocha](http://mochajs.org/) and [Chai](http://chaijs.com/).
-* Linting with [ESLint](http://eslint.org/).
+* Pure logic available as an observable
+* Start/stop
+* Typing speed (randomized within a range if you choose to do so)
+* "Pattern" for caret blink between sentences
 
 ## Process
-
-```
-ES6 source files
-       |
-       |
-    webpack
-       |
-       +--- babel, eslint
-       |
-  ready to use
-     library
-  in umd format
-```
-
-*Have in mind that you have to build your library before publishing. The files under the `lib` folder are the ones that should be distributed.*
-
-## Getting started
-
-1. Setting up the name of your library
-  * Open `webpack.config.js` file and change the value of `libraryName` variable.
-  * Open `package.json` file and change the value of `main` property so it matches the name of your library.
-2. Build your library
-  * Run `npm install` to get the project's dependencies
-  * Run `npm run build` to produce minified version of your library.
-3. Development mode
-  * Having all the dependencies installed run `npm run dev`. This command will generate an non-minified version of your library and will run a watcher so you get the compilation on file change.
-4. Running the tests
-  * Run `npm run test`
-
-## Scripts
-
-* `npm run build` - produces production version of your library under the `lib` folder
-* `npm run dev` - produces development version of your library and runs a watcher
-* `npm run test` - well ... it runs the tests :)
-* `npm run test:watch` - same as above but in a watch mode
-
-## Readings
-
-* [Start your own JavaScript library using webpack and ES6](http://krasimirtsonev.com/blog/article/javascript-library-starter-using-webpack-es6)
-
-## Misc
-
-### An example of using dependencies that shouldn’t be resolved by webpack, but should become dependencies of the resulting bundle
-
-In the following example we are excluding React and Lodash:
+1. `npm install typewriter_vanilla`
+2. Add to a HTML file with a simple `<script>` tag (UMD), or use it in a webpack/browserify/commonjs context
+3. Add it to an element using
 
 ```js
-{
-  devtool: 'source-map',
-  output: {
-    path: '...',
-    libraryTarget: 'umd',
-    library: '...'
-  },
-  entry: '...',
-  ...
-  externals: {
-    react: 'react'
-    // Use more complicated mapping for lodash.
-    // We need to access it differently depending
-    // on the environment.
-    lodash: {
-      commonjs: 'lodash',
-      commonjs2: 'lodash',
-      amd: '_',
-      root: '_'
-    }
-  }
-}
+var typewriterInstance = window.typewriter_vanilla.input(document.getElementsByTagName('input')[0], [
+    'hello world',
+    'something s cooking',
+    'it smells of vanilla'
+  ], {autoStart: true})
+typewriterInstance.stop()
+typewriterInstance.start()
+typewriterInstance.clear()
 ```
+
+4. You can also simply subscribe to the observable `typewriterInstance.text$`
+
+## Logic only
+
+You can easily use any of the existing modules:
+
+* randomTimer(min, max): build a timer observable that will emit at random times between min/max each time; emits increasing numbers
+* word(sentence, min, max): Observable which emits the letters of the sentence using a random timer as above
+* cursor(pattern=[200,700,300], character='|', empty=''): Observable which emits first `empty` then 200ms later, emits `character` and leaves it there for 700ms, then blank for 300ms. Change the pattern to keep "blinking"
+* typewriter(words, characterOptions, cursorOptions): the full observable; a concatenation of a "word" observable followed by a "cursor" observable for each word in words
