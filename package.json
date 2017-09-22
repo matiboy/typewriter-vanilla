@@ -1,5 +1,5 @@
 {
-  "name": "vanilla-typewriter",
+  "name": "typewriter-vanilla",
   "version": "0.1.0",
   "description": "Vanilla Javascript Typewriter effect.",
   "main": "lib/library.js",
@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/matiboy/vanilla-typewriter.git"
+    "url": "https://github.com/matiboy/typewriter-vanilla.git"
   },
   "keywords": [
     "input",
@@ -39,9 +39,9 @@
   "author": "Matiboy",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/matiboy/vanilla-typewriter/issues"
+    "url": "https://github.com/matiboy/typewriter-vanilla/issues"
   },
-  "homepage": "https://github.com/matiboy/vanilla-typewriter",
+  "homepage": "https://github.com/matiboy/typewriter-vanilla",
   "dependencies": {
     "lodash": "^4.17.4",
     "rxjs": "^5.4.3"
